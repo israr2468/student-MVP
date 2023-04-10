@@ -1,0 +1,48 @@
+### POST 
+POST http://localhost:3000/api/recipes
+Content-Type: application/json
+
+{
+    "name": "kabab",
+    "time": "45 minutes",
+    "ingredients": "flour salt and keema"
+}
+
+### GET all 
+GET http://localhost:3000/api/recipes
+
+
+### GET fist 
+GET http://localhost:3000/api/recipes/1
+
+
+### GET too low 
+GET http://localhost:3000/api/recipes/-1
+
+
+### GET too high
+GET http://localhost:3000/api/recipes/10
+
+
+### PUT 
+PUT http://localhost:3000/api/recipes/1
+Content-Type: application/json
+
+{
+  "name": "Power-Puff Girls",
+  "time": "infinte",
+  "ingredients": "Sugar spice and everything nice."
+}
+
+### PUT 
+PUT http://localhost:3000/api/recipes/2
+Content-Type: application/json
+
+{
+    "name": "Updated Recipe",
+    "time": "30 minutes",
+    "ingredients": "Updated Ingredient 1, Updated Ingredient 2"
+}
+
+### DELETE
+DELETE http://localhost:3000/api/recipes/2

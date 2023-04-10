@@ -1,0 +1,1 @@
+INSERT INTO recipes (name, time, ingredients) VALUES ('cupcakes', '69 minutes', 'flour spice and everything nice');
