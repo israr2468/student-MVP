@@ -1,1 +1,2 @@
-INSERT INTO recipes (name, time, ingredients) VALUES ('cupcakes', '69 minutes', 'flour spice and everything nice');
+INSERT INTO recipes (title, prep_time, cook_time, ingredients, directions)
+VALUES ('Power-Puff Girls', 'infinite', 'infinite', '{"ingredient1": {"name": "Sugar", "quantity": "2 cups"}, "ingredient2": {"name": "Spice", "quantity": "1 teaspoon"}, "ingredient3": {"name": "Everything nice", "quantity": "1 tablespoon"}}', 'Mix sugar, spice, and everything nice. Add water and stir. Bake for 30 minutes.');
