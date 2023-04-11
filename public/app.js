@@ -1,5 +1,3 @@
-console.log(`Fetching data... - client side`)
-
 console.log(`Fetching Data...`)
 
 const recipeContainer = document.getElementsByClassName("recipes-container")[0];

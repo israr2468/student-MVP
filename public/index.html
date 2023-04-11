@@ -5,14 +5,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student MVP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <H1>MVP Project</H1>
-    <h1>My Recipes</h1>
+    <h1>MVP Project</h1>
+    <div class="container">
+        <div class="meal-wrap">
+            <div class="meal-search">
+                <h2>Find meals based off your ingredients</h2>
+                <blockquote>We work with what you got.<br>
+                <div class="meal-search-box">
+                    <input type="text" class="search-control" placeholder="Enter ingredients" id="search-input">
+                    <button type="sabmit" class="search-btn btn" id="search-btn">
+                        <i class="fas fa-search"> </i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="meal-result">
+                <h2 class="title"> Your search results:</h2>
+                <div id="meal">
+                    <!-- meal item -->
+                    <div class="meal-item">
+                        <div class="meal-img">
+                            <img src="https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2021/05/Kids-Food-Cover.jpg?resize=1250,1120" alt="https://guardian.ng/wp-content/uploads/2016/09/vegetable_big_logo2.jpg">
+                        </div>
+                        <div class="meal-name">
+                            <h3>Meal Name</h3>
+                            <a href="#" class="recipe-btn">Get Recipe</a>
+                        </div>
+                    </div>
+                     <!-- end meal item -->
+                                  <!-- meal item -->
+                    <div class="meal-item">
+                        <div class="meal-img">
+                            <img src="https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2021/05/Kids-Food-Cover.jpg?resize=1250,1120" alt="https://guardian.ng/wp-content/uploads/2016/09/vegetable_big_logo2.jpg">
+                        </div>
+                        <div class="meal-name">
+                            <h3>Meal Name</h3>
+                            <a href="#" class="recipe-btn">Get Recipe</a>
+                        </div>
+                    </div>
+                     <!-- end meal item -->
+                                  <!-- meal item -->
+                    <div class="meal-item">
+                        <div class="meal-img">
+                            <img src="https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2021/05/Kids-Food-Cover.jpg?resize=1250,1120" alt="https://guardian.ng/wp-content/uploads/2016/09/vegetable_big_logo2.jpg">
+                        </div>
+                        <div class="meal-name">
+                            <h3>Meal Name</h3>
+                            <a href="#" class="recipe-btn">Get Recipe</a>
+                        </div>
+                    </div>
+                     <!-- end meal item -->
+                </div>
+            </div>
+            <div class="meal-details">
+                <!-- recipe close btn -->
+                <button type="button" class="btn recipe-close-btn" id="recipe-close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <!-- meal content -->
+                <div class="meal-details-content">
+                    <h2 class="recipe-title">Meals Name Here</h2>
+                    <p class="recipe-instructions">
+                        <h3>recipe-instructions:</h3>
+                        <p>RANDOM STUFF FOR INSTRUCTIONS</p>
+                        <div class="recipe-meal-img">
+                            <img src="img.jpg" alt="img2.jpg">
+                        </div>
+                        <div class="recipe-link">
+                            <a href="#" target="_blank">Watch video</a>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <input type="Search for your favorite recipe" title="Enter Here:" id="text-search"> </input>
     <button type="Submit" title="Submit" id="search-button">Submit</button>
-    <div class="recipes-container"></div>
     
     <script src="app.js" defer></script>
 </body>
