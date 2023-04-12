@@ -74,12 +74,12 @@ app.post('/api/images', (req, res) => {
   
 
 // READ - specific to id
-app.get('/api/recipes/:id', (req, res) => {
-    const recipeId = req.params.id;
-    pool.query(`SELECT * FROM recipes WHERE id = $1`, [recipeId])
+app.get('/api/images/:id', (req, res) => {
+    const imageId = req.params.id;
+    pool.query(`SELECT * FROM images WHERE id = $1`, [imageId])
     .then((result) => {
         if (result.rows.length === 0) {
-            res.status(404).json({error: `Recipe not found`});
+            res.status(404).json({error: `Image not found`});
         } else {
             res.json(result.rows[0]);
         }
@@ -88,20 +88,20 @@ app.get('/api/recipes/:id', (req, res) => {
         console.error(err)
         res.status(500).json({error: `Internal Server Error`});
     });
-});
+ });
 
 
 // UPDATE - put
-app.put('/api/recipes/:id', (req, res) => {
+app.put('/api/images/:id', (req, res) => {
     const id = req.params.id;
-    const {name, time, ingredients} = req.body;
-    if (!name || !time || !ingredients) {
+    const {name, image_link} = req.body;
+    if (!name || !image_link) {
         res.status(400).json({ error: 'Missing fields' });
     } else {
-        pool.query(`UPDATE recipes SET name=$1, time=$2, ingredients=$3 WHERE id=$4 RETURNING *`, [name, time, ingredients, id])
+        pool.query(`UPDATE images SET name=$1, image_link=$2 WHERE id=$3 RETURNING *`, [name, image_link, id])
         .then((result) => {
             if (result.rows.length === 0) {
-                res.status(404).json({error: `Recipe not found`});
+                res.status(404).json({error: `Image not found`});
             } else {
                 res.json(result.rows[0]);
             }
@@ -114,15 +114,43 @@ app.put('/api/recipes/:id', (req, res) => {
 });
 
 
+// if id is out of bound
+// pg.query (`SELECT * FROM pets WHERE id = $1`,[petId]).then(result=>{
+           
+            
+//     if (result.rows.length === 0) 
+//         return next('error');
+//     else {
+//         const query = 'UPDATE pets SET age = COALESCE($1, age), kind = COALESCE($2, kind), name = COALESCE($3, name) WHERE id = $4 RETURNING *';
+//         const values = [data.age || null, data.kind || null, data.name || null, petId]; //if value exists, add value to array if not set null
+        
+//         let key = Object.keys(req.body)[0];
+//         let value = Object.values(req.body)[0];
+
+//         // const query = `UPDATE pets SET ${key}=$1 WHERE id=$2 RETURNING *`;
+//         // const values = [value, petId* 1];
+//         pg.query(query,values).then(response=>{
+//             let result = response.rows[0];
+//             delete result.id;
+//             res.json(result);
+//         }).catch((e)=>{
+//             e = new Error('Bad request: missing required parameter')
+//             e.statusCode = 400;
+//             return next(e);
+//         })
+//     }
+// })
+
+
 // DELETE - specific to id
-app.delete('/api/recipes/:id', (req, res) => {
-    const recipeId = req.params.id;
-    pool.query(`DELETE FROM recipes WHERE id = $1`, [recipeId])
+app.delete('/api/images/:id', (req, res) => {
+    const imageId = req.params.id;
+    pool.query(`DELETE FROM images WHERE id = $1`, [imageId])
     .then((result) => {
         if (result.rowCount === 0) {
             res.status(404).json({error: `Recipe not found`});
         } else {
-            res.json({ message: `Recipe with ID ${recipeId} deleted successfully`});
+            res.json({ message: `Image with ID ${imageId} deleted successfully`});
         }
     })
     .catch((err) => {
