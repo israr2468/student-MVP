@@ -29,7 +29,7 @@ function getMealList(){
             if (data.meals) {
                 data.meals.forEach(meal => {
                     html += `
-                        <div class="meal-item" data-id= "${meal.idMeal}">
+                        <div class="meal-item" data-id="${meal.idMeal}">
                             <div class="meal-img">
                                 <img src="${meal.strMealThumb}" alt="food">
                             </div>
@@ -37,7 +37,7 @@ function getMealList(){
                                 <h3>${meal.strMeal}</h3>
                                 <a href="#" class="recipe-btn">Get Recipe</a>
                             </div>
-                        </div>
+                        </div> 
                     `;
                 });
                 mealList.classList.remove('notFound');
@@ -47,24 +47,29 @@ function getMealList(){
             mealsElement.innerHTML = html;
         })
 
-    fetch('http://localhost:3000/api/images')
+    fetch(`http://localhost:3000/api/images`)
         .then(response => response.json())
         .then(data => {
             //console.log(data[0].name)
             let html = "";
-            data.forEach(recipe => {
-                html += `
-                    <div class="meal-item" data-id= "${recipe.id}">
-                        <div class="meal-img">
-                            <img src="${recipe.image_link}" alt="Picture Not Found">
+            if (data) {
+                data.forEach(recipe => {
+                    html += `
+                        <div class="meal-item" data-id="${recipe.id}">
+                            <div class="meal-img">
+                                <img src="${recipe.image_link}" alt="Picture Not Found">
+                            </div>
+                            <div class="meal-name">
+                                <h3>${recipe.name}</h3>
+                                <a href="#" class="recipe-btn">Get Recipe</a>
+                            </div>
                         </div>
-                        <div class="meal-name">
-                            <h3>${recipe.name}</h3>
-                            <a href="#" class="recipe-btn">Get Recipe</a>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+                recipesElement.classList.remove('notFound');
+            } else {
+                recipesElement.classList.add('notFound')
+            }
             recipesElement.innerHTML = html;
         })
 
@@ -77,25 +82,57 @@ function getMealList(){
 // get recipe 
 function getMealRecipe(e) {
     e.preventDefault();
+    //console.log(e)
     if (e.target.classList.contains('recipe-btn')) {
         //console.log(e.target)
         let mealItem = e.target.parentElement.parentElement;
         fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealItem.dataset.id}`)
             .then(response => response.json())
             .then(data => mealRecipeModel(data.meals));
+
+        let imageItem = e.target.parentElement.parentElement;
+        fetch(`http://localhost:3000/api/images/${imageItem.dataset.id}`)
+        .then(response => response.json())
+        .then(recipe => mealImageModel([recipe])); // wrap the recipe object in an array
+
+        // console.log(imageItem.dataset.id)
     }
 }
 
 // create model
+
+function mealImageModel(recipe) {
+    try {
+        // console.log(recipe);
+        recipe = recipe[0];
+        let html = `
+            <h2 class="recipe-title">${recipe.name}</h2>
+            <div class="recipe-meal-img">
+                <img src="${recipe.image_link}" alt="Picture Not Found">
+            </div>
+            <div class="recipe-instructions">
+                <h3>Instructions:</h3>
+                <p>Recipe Coming Soon</p>
+            </div>
+        `;
+        mealDetailContent.innerHTML = html;
+        mealDetailContent.parentElement.classList.add('showRecipe');
+    } catch (error) {
+        console.log(error);
+        return; // stop code execution
+    }
+}
+
 function mealRecipeModel(meal) {
-    console.log(meal);
-    meal = meal[0];
-    let html = `
-        <h2 class="recipe-title">${meal.strMeal}</h2>
-        <p class="recipe-category">${meal.strCategory}</p>
-        <div class="recipe-instructions">
-            <h3>Instructions:</h3>
-            <p>${meal.strInstructions}</p>
+    try {
+        // console.log(meal);
+        meal = meal[0];
+        let html = `
+            <h2 class="recipe-title">${meal.strMeal}</h2>
+            <p class="recipe-category">${meal.strCategory}</p>
+            <div class="recipe-instructions">
+                <h3>Instructions:</h3>
+                <p>${meal.strInstructions}</p>
             </div>
             <div class="recipe-meal-img">
                 <img src="${meal.strMealThumb}" alt="">
@@ -103,7 +140,50 @@ function mealRecipeModel(meal) {
             <div class="recipe-link">
                 <a href="${meal.strYoutube}" target="_blank">Watch Video</a>
             </div>
-    `;
-    mealDetailContent.innerHTML = html
-    mealDetailContent.parentElement.classList.add('showRecipe')
-} 
+        `;
+        mealDetailContent.innerHTML = html
+        mealDetailContent.parentElement.classList.add('showRecipe')
+    } catch (error) {
+        console.log(error);
+        return; // stop code execution
+    }
+}
+
+
+// this isn't working. Code wants to run into mealRecipeModel after running mealImageModel. Have to consdier try catch 
+   
+// function mealRecipeModel(meal) {
+    //     console.log(meal);
+    //     meal = meal[0];
+    //     let html = `
+    //         <h2 class="recipe-title">${meal.strMeal}</h2>
+    //         <p class="recipe-category">${meal.strCategory}</p>
+    //         <div class="recipe-instructions">
+    //             <h3>Instructions:</h3>
+    //             <p>${meal.strInstructions}</p>
+    //             </div>
+    //             <div class="recipe-meal-img">
+    //                 <img src="${meal.strMealThumb}" alt="">
+    //             </div>
+    //             <div class="recipe-link">
+    //                 <a href="${meal.strYoutube}" target="_blank">Watch Video</a>
+    //             </div>
+    //     `;
+    //     mealDetailContent.innerHTML = html
+    //     mealDetailContent.parentElement.classList.add('showRecipe')
+    // } 
+    
+    
+    // function mealImageModel(recipe) {
+    //     console.log(recipe);
+    //     recipe = recipe[0];
+    //     let html = `
+    //       <h2 class="recipe-title">${recipe.name}</h2>
+    //       <div class="recipe-meal-img">
+    //         <img src="${recipe.image_link}" alt="Picture Not Found">
+    //       </div>
+    //     `;
+    //     mealDetailContent.innerHTML = html;
+    //     mealDetailContent.parentElement.classList.add('showRecipe');
+    //   }
+    

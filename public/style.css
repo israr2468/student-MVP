@@ -101,10 +101,14 @@ body{
 
 #meal{
     margin: 2.4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1rem;
 }
 
+
 .meal-item{
-    border-radius: 1rem;
+    border-radius: 3rem;
     overflow: hidden;
     box-shadow: 0 4px 21px -12px black;
 }
@@ -214,18 +218,10 @@ body{
     font-weight: 700;
 }
 
-.notFound{
-    grid-template-columns: 1fr!important;
-    color: orange;
-    font-size: 1.8rem;
-    width: 100%;
-}
-
-
 
 @media screen and (min-width:600px){
     .meal-search-box{
-        width: 540px;
+        width: 70%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -233,11 +229,11 @@ body{
 @media screen and (min-width:768px){
     #meal{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 2rem;
     }
     .meal-item{
-        margin: 0;
+        margin: 2rem;
         background-color: aliceblue;
     }
     .meal-details{
@@ -245,9 +241,9 @@ body{
     }
 }
 
-@media screen and (min-width:992px){
+@media screen and (min-width:1200px){
     #meal{
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 }
