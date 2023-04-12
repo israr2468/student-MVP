@@ -17,10 +17,14 @@ recipeCloseBtn.addEventListener('click', () => {
 function getMealList(){
     let searchInputText = document.getElementById('search-input').value.trim();
     console.log(searchInputText)
+
+    const mealsElement = document.createElement('div');
+    const recipesElement = document.createElement('div');
+
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInputText}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            //console.log(data)
             let html = "";
             if (data.meals) {
                 data.meals.forEach(meal => {
@@ -38,12 +42,37 @@ function getMealList(){
                 });
                 mealList.classList.remove('notFound');
             } else {
-                html = "Sorry we couldn't find any meals with that ingredeint."
                 mealList.classList.add('notFound')
             }
-            mealList.innerHTML = html;
-        });
+            mealsElement.innerHTML = html;
+        })
+
+    fetch('http://localhost:3000/api/images')
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data[0].name)
+            let html = "";
+            data.forEach(recipe => {
+                html += `
+                    <div class="meal-item" data-id= "${recipe.id}">
+                        <div class="meal-img">
+                            <img src="${recipe.image_link}" alt="Picture Not Found">
+                        </div>
+                        <div class="meal-name">
+                            <h3>${recipe.name}</h3>
+                            <a href="#" class="recipe-btn">Get Recipe</a>
+                        </div>
+                    </div>
+                `;
+            });
+            recipesElement.innerHTML = html;
+        })
+
+    mealList.innerHTML = '';
+    mealList.appendChild(mealsElement);
+    mealList.appendChild(recipesElement);
 }
+
 
 // get recipe 
 function getMealRecipe(e) {
@@ -78,47 +107,3 @@ function mealRecipeModel(meal) {
     mealDetailContent.innerHTML = html
     mealDetailContent.parentElement.classList.add('showRecipe')
 } 
-
-// const recipeContainer = document.getElementsByClassName("recipes-container")[0];
-// fetch('http://localhost:3000/api/recipes')
-//     .then(response => response.json())
-//     .then(data => {
-//         data.forEach(recipe => {
-//             const recipeDiv = document.createElement('div');
-//             recipeDiv.classList.add('recipe');
-//             const nameElement = document.createElement('div');
-//             const timeElement = document.createElement('div');
-//             const ingredientsElement = document.createElement('div');
-//             nameElement.textContent = `Name: ${recipe.name}` 
-//             timeElement.textContent = `Time to complete: ${recipe.time}` 
-//             ingredientsElement.textContent = `All you need: ${recipe.ingredients}`;
-//             recipeDiv.appendChild(nameElement);
-//             recipeDiv.appendChild(timeElement);
-//             recipeDiv.appendChild(ingredientsElement);
-//             recipeContainer.appendChild(recipeDiv)
-//         });
-//     })
-//     .catch(error => console.error(error));
-
-// const textInput = document.querySelector("#text-search");
-// const searchButton = document.querySelector("#search-button");
-
-// searchButton.addEventListener("click", () => {
-//     let textValue = textInput.value;
-//     fetch(`http://localhost:3000/api/recipes/${textValue}`)
-//         .then((response) => response.json())
-//         .then((recipe) => {
-//             const recipeDiv = document.createElement('div');
-//             recipeDiv.classList.add('recipe');
-//             const nameElement = document.createElement('div');
-//             const timeElement = document.createElement('div');
-//             const ingredientsElement = document.createElement('div');
-//             nameElement.textContent = `Name: ${recipe.name}` 
-//             timeElement.textContent = `Time to complete: ${recipe.time}` 
-//             ingredientsElement.textContent = `All you need: ${recipe.ingredients}`;
-//             recipeDiv.appendChild(nameElement);
-//             recipeDiv.appendChild(timeElement);
-//             recipeDiv.appendChild(ingredientsElement);
-//             recipeContainer.appendChild(recipeDiv)
-//         });
-// });

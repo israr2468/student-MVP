@@ -1,35 +1,38 @@
-### POST
-POST http://localhost:3000/api/recipes
+### POST image
+POST http://localhost:3000/api/images
 Content-Type: application/json
 
 {
-"name": "Kabab",
-"category": "Main Dish",
-"instructions": "Mix flour, salt and keema. Grill for 20 minutes.",
-"imageUrl": "",
-"videoUrl": "",
-"createdBy": "John Doe"
+    "name": "Parata",
+    "image_link": "https://img.freepik.com/premium-photo/roti-parata-roti-canai-with-lamb-curry-sauce_121826-2076.jpg"
 }
 
-### GET all
+### GET all 
 GET http://localhost:3000/api/recipes
 
-### GET by ID
+
+### GET fist 
 GET http://localhost:3000/api/recipes/1
 
-### PUT
+
+### GET too low 
+GET http://localhost:3000/api/recipes/-1
+
+
+### GET too high
+GET http://localhost:3000/api/recipes/10
+
+
+### PUT 
 PUT http://localhost:3000/api/recipes/1
 Content-Type: application/json
 
 {
-"name": "Power-Puff Girls",
-"prepTime": "infinite",
-"cookTime": "infinite",
-"ingredients": "Sugar, spice, and everything nice",
-"instructions": "Mix sugar, spice, and everything nice. Add water and stir. Bake for 30 minutes."
+  "name": "Power-Puff Girls",
+  "time": "infinte",
+  "ingredients": "Sugar spice and everything nice."
 }
+
 
 ### DELETE
 DELETE http://localhost:3000/api/recipes/2
-
-# Note that in the updated request, the key names in the POST and PUT requests have been changed to match the key names in the example code. Also, the snake case key names in the example code have been converted to camel case.
